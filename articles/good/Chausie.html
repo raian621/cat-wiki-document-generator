@@ -1,0 +1,93 @@
+<main class=page__main lang=en><html><body><a href=https://cats.fandom.com/wiki/Chausie/ id=article_url></a></body></html><div class=page-side-tools__wrapper><div class=page-side-tools><button aria-label=Expand class="page-side-tool content-size-toggle" name=content-size-toggle><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-zoom-in-small></use></svg> </button><a aria-label="Sign in to edit" class="page-side-tool page-side-edit" data-tracking-label=log-in-edit-side-tool data-wds-tooltip="Sign in to edit" data-wds-tooltip-position=right href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FChausie%3Fveaction%3Dedit&uselang=en" id=log-in-edit-side-tool><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> </a></div></div><div class=page-header><div class=page-header__top><div class=page-header__meta><div class=page-header__categories><span class=page-header__categories-in>in:</span><a data-tracking-label=categories-top-more-0 href=/wiki/Category:Article_stubs title="Category:Article stubs">Article stubs</a>, <a data-tracking-label=categories-top-more-1 href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a>, <a data-tracking-label=categories-top-more-2 href=/wiki/Category:Hybrid_Cat_Breeds title="Category:Hybrid Cat Breeds">Hybrid Cat Breeds</a> </div></div><div class=page-header__languages><div class=wds-dropdown><div class=wds-dropdown__toggle> English<svg class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron"><use xlink:href=#wds-icons-dropdown-tiny></use></svg> </div><div class=wds-dropdown__content><ul class="wds-list wds-is-linked"><li><a data-tracking-label=lang-de href=https://katzen.fandom.com/de/wiki/Chausie>Deutsch</a></li><li><a data-tracking-label=lang-es href=https://gatopedia.fandom.com/es/wiki/Gato_chausie>Español</a></li><li><a href=https://cats.fandom.com/ja/wiki/ data-tracking-label=lang-ja>日本語</a></li><li><a href=https://cats.fandom.com/ru/wiki/ data-tracking-label=lang-ru>Русский</a></li></ul></div></div></div></div><div class=page-header__bottom><div class=page-header__title-wrapper><h1 class=page-header__title id=firstHeading><span class=mw-page-title-main>Chausie</span> </h1></div><div class=page-header__actions id=p-views><a class="wds-button wds-is-text page-header__action-button" data-tracking-label=comments-button href=#articleComments><div class=button-counter id=article-comments-button></div><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-comment-small></use></svg> </a><a class="wds-button wds-is-text page-header__action-button has-label" data-tracking-label=log-in-edit href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FChausie%3Fveaction%3Dedit&uselang=en" id=log-in-edit><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> Sign in to edit </a><div class=wds-dropdown><div aria-controls=p-cactions aria-label="Page Tools" class="wds-dropdown__toggle wds-button wds-is-text page-header__action-button" role=button><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-more-small></use></svg> </div><div class="wds-dropdown__content wds-is-right-aligned wds-is-not-scrollable" id=p-cactions><ul class="wds-list wds-is-linked"><li><a accesskey=h data-tracking-label=ca-history-dropdown href="/wiki/Chausie?action=history" id=ca-history> View history </a></li><li><a accesskey=t class=new data-tracking-label=ca-talk-dropdown href="/wiki/Talk:Chausie?action=edit&redlink=1" id=ca-talk> Talk (0) </a></li></ul></div></div></div></div></div><div class=page-content id=content><script data-name=featured-video-mapped-to-wiki>
+    (function () {
+        // we can't use mw.config here because it's too early so we need to pass this data in different way
+        var videoDetails = {
+            mediaId: "CR0MZ2ZP",
+            impressionsPerSession: 3,
+            isDedicatedForArticle: false,
+            tier3Mapping: true,
+        };
+        var hasVideoOnPage = null;
+        var videoBridgeCountries = ["US","GB","CA","AU","DE","SG","MY","VN","ID","PH","TH","ES","FR","AR","MX","CO","PE","NZ","IN","DE","VN","FR","BR","ES","PL","CL"];
+        var tier3VideoBridgeCountries = ["MX","AR"];
+
+        function getCookieValue(cookieName) {
+            var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
+            return cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
+        }
+
+        function hasMaxedOutPlayerImpressionsInWiki() {
+            var impressionsSoFar = Number(getCookieValue('playerImpressionsInWiki')) || 0;
+            var allowedImpressions = Number(videoDetails.impressionsPerSession);
+
+            if (!hasSeenTheVideoInCurrentSession()) {
+                return false;
+            }
+
+            if (allowedImpressions === 0) {
+                return true;
+            }
+
+            return impressionsSoFar >= allowedImpressions;
+        }
+
+        function hasSeenTheVideoInCurrentSession() {
+            var currentSession = getCookieValue('wikia_session_id');
+            var videoSeenInSession = getCookieValue('featuredVideoSeenInSession');
+
+            return currentSession && videoSeenInSession && currentSession === videoSeenInSession;
+        }
+
+        function getCountryCode() {
+            try {
+                return JSON.parse(decodeURIComponent(getCookieValue('Geo'))).country.toLowerCase();
+            } catch {
+                return null;
+            }
+        }
+
+        function isVideoBridgeAllowedForCountry() {
+            var countryCode = getCountryCode();
+
+            if (!countryCode) {
+                return false;
+            }
+
+            // Check if the wiki is a tier3 wiki. This value comes back from the ArticleVideo service
+            if (videoDetails && videoDetails.tier3Mapping) {
+              // If the wiki is classified as a tier3 wiki, then check the country whitelist from the tier3VideoBridge whitelist.
+              var allowedCountriesForTier3Wikis = tier3VideoBridgeCountries.map(function (allowedTier3CountryCode) {
+                return allowedTier3CountryCode.toLowerCase();
+              })
+
+              return allowedCountriesForTier3Wikis.indexOf(countryCode) !== -1;
+            } else {
+              // If not a tier3 wiki, then check the country whitelist from the videoBridge whitelist
+              var allowedCountries = videoBridgeCountries.map(function (allowedCountryCode) {
+                return allowedCountryCode.toLowerCase();
+              });
+
+              return allowedCountries.indexOf(countryCode) !== -1;
+            }
+
+            return false;
+        }
+
+        window.canPlayVideo = function () {
+            if (hasVideoOnPage === null) {
+                hasVideoOnPage = videoDetails.mediaId && (
+                    videoDetails.isDedicatedForArticle ||
+	                (!hasMaxedOutPlayerImpressionsInWiki() && isVideoBridgeAllowedForCountry())
+                );
+            }
+
+            return hasVideoOnPage;
+        };
+
+        if (!window.canPlayVideo()) {
+            document.body.classList.add('no-featured-video');
+        } else {
+	        document.body.classList.add('has-featured-video');
+        }
+    })();
+</script><div itemprop=video itemscope itemtype=http://schema.org/VideoObject><meta content="How Big Ahsoka Actually Was? - The Loop" itemprop=name><meta content=PT01M08S itemprop=duration><meta content itemprop=description><meta content="https://cdn.jwplayer.com/v2/media/HHON9eqF/poster.jpg?width=720" itemprop=thumbnailUrl><meta content=https://cdn.jwplayer.com/videos/HHON9eqF-cSpmBcaY.mp4 itemprop=contentURL><meta content=2023-10-25T18:16:29+00:00 itemprop=uploadDate><div class=featured-video-player-container id=featured-video__player-container></div></div><div class="mw-body-content mw-content-ltr" dir=ltr id=mw-content-text><noscript><iframe height=0 src="https://www.googletagmanager.com/ns.html?id=GTM-N6XD44P" style=display:none;visibility:hidden width=0></iframe></noscript><div class=mw-parser-output><table align=center cellpadding=0 cellspacing=0 style="background-color:#E7FEFF; border:navy solid 2px; padding:4px 6px; border-radius:20px; -moz-border-radius:20px; -webkit-border-radius:20px;"><tbody><tr><td><a class=image href="https://static.wikia.nocookie.net/cats/images/0/0f/Strolling_panther.gif/revision/latest?cb=20131128044006&path-prefix=en"><img alt="Strolling panther" data-image-key=Strolling_panther.gif data-image-name="Strolling panther.gif" data-relevant=0 decoding=async height=41 loading=lazy src="https://static.wikia.nocookie.net/cats/images/0/0f/Strolling_panther.gif/revision/latest?cb=20131128044006&path-prefix=en" width=85></a></td><th>This article is a <a href=/wiki/Category:Article_stubs title="Category:Article stubs">stub</a>. You can help Cats Wiki by <a class=text href="https://cats.fandom.com/wiki/Chausie?action=edit" rel="noreferrer noopener" target=_blank>expanding it</a>. </th></tr></tbody></table><table class=infobox style="width:250px;float:right;border:2px solid black; font-size:100%; background-color:transparent; -moz-box-shadow: 0px 7px 7px black; -webkit-box-shadow: 0px 7px 7px black;"><tbody><tr><th class=color1 colspan=3 style="font-size:120%;background-color:black; color:white;">Chausie </th></tr><tr style=text-align:center;><td colspan=2><a class=image href="https://static.wikia.nocookie.net/cats/images/6/61/Chausiecatexample.jpg/revision/latest?cb=20110217215755&path-prefix=en"><img alt=Chausiecatexample data-image-key=Chausiecatexample.jpg data-image-name=Chausiecatexample.jpg data-relevant=1 decoding=async height=188 loading=lazy src="https://static.wikia.nocookie.net/cats/images/6/61/Chausiecatexample.jpg/revision/latest/scale-to-width-down/250?cb=20110217215755&path-prefix=en" width=250></a> <br><i> </i></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; font-weight:bold; background-color:black; color:white;">Information </td></tr><tr><td style="background-color:black;color:white; text-align:center;"><b>Alternative Names</b></td><td class=infoboxcell><p>Jungle Curl<br>Stone Cougar<br>Mountain Cougar </p></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; font-weight:bold; background-color:black; color:white;">Breed Standard </td></tr><tr><td style="background-color:black;color:white; text-align:center;"><b><a href=/wiki/The_International_Cat_Association title="The International Cat Association"><font style=color:white>TICA</font></a></b></td><td class=infoboxcell><p><a class="external text" href=http://tica.org/public/breeds/cu/intro.php rel="nofollow noreferrer noopener" target=_blank>Standard</a></p></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Cat title=Cat><font style="color:white; font-weight:bold;">Cat</font></a> <b>(Felis catus)</b></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Category:Breeds title=Category:Breeds><font style="color:white; font-weight:bold;">List of Cat Breeds</font></a></td></tr></tbody></table><p><br></p><p><br> A <b>Chausie</b> (aka <b>Jungle Curl</b>, <b>Stone Cougar</b>, <b>Mountain Cougar</b>) is a hybrid of a domestic cat (<i>Felis silvestris catus</i>) and a Jungle Cat (<i>Felis chaus</i>). </p><h2><span class=mw-headline id=History>History</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FChausie%3Fveaction%3Dedit%26section%3D1&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>Generations are identified by F1, F2 etc., with F1 being the offspring of the original cat and jungle cat mating. Males in the F1 to F3 generations are usually sterile; however, some F4 males may be fertile. The domestic cat breed most widely used for Chausies is the <a href=/wiki/Abyssinian title=Abyssinian>Abyssinian</a>, because they have the same look and active habits as a Jungle Cat, but are very much smaller. A Chausie, due to the various sizes of the parents, can weigh between 9 and 30 pounds (when full grown, the males are larger than the females). They were first bred in the late '60s or '70s to provide a safer alternative to keeping full jungle cats as pets. The breed was granted registration status with TICA in March 1995. In February 2001, the breed's status was changed to allow only animals four generations removed (F4) from the wild cat into show halls. It was changed to Advanced New Breed (ANB) status as of May 2003. They come in several colors (silver-tipped, brown-ticked tabby, and black). Some have tufts of fur on the tops of their ears. </p><h2><span class=mw-headline id=Characteristics>Characteristics</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FChausie%3Fveaction%3Dedit%26section%3D2&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>Chausie males typically weigh about 12 to 30 pounds, while females tend to be smaller, ranging in weight from 9 to 20 pounds. Individuals considering keeping Chausies should be aware of the cats' much larger requirement for space and activity. Digestive tract problems have been occasionally associated with this breed; some cats may be gluten-intolerant, and have trouble digesting commercial cat food which contains wheat or other gluten grains. Similar to other large cats, Chausies can take up to 2 or 3 years to reach full size. Chausies are known for their speed and nearly six foot vertical leap. </p><h2><span class=mw-headline id=Temperament>Temperament</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FChausie%3Fveaction%3Dedit%26section%3D3&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>Chausies are very loyal to their family &amp; like other pets. They tend to be very active, busy (very active paws), intelligent (very active minds), curious, and sweet-natured. They're not couch potatoes and tend to be more assertive than aggressive. They don't like change. They can be very ferocious and are good hunters. They love having company. They need interaction and stimulation and are most active at night. They can be like a supervisor because they almost always have to be in the middle of everything. They love to get into things and can be trained to do things like open cupboards and doors and play fetch. They're also very loyal and bond tightly to their person or people, depending on their temperament. Chausies do best with people who have plenty of time to take care of it and spend time with it, children who are responsible and can treat chausies or any other type of cat in a respectful, safe, and responsible manner, and animals that will play be its playmate. Chausies can live with small animals, but it requires much patience and training to get a chausie to play gently with small animals. When laying down, chausies tend to sprawl out, but will occasionally curl up into a ball like most cats. They might even climb into bed and sleep with you if you let them. Chausies can be very vocal, and some even purr loudly. </p></div></div> </div><div class=page-footer><div class="wds-collapsible-panel wds-is-collapsed page-footer__categories"><header aria-controls=collapsible-content-categories aria-expanded=false class=wds-collapsible-panel__header> Categories <svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-menu-control-small></use></svg> </header><div class=wds-collapsible-panel__content id=collapsible-content-categories><nav class="article-categories CategorySelect articlePage" id=articleCategories><div class=container><ul class=categories><li class=special-categories-label><a class=categoriesLink href=/wiki/Special:Categories title=Special:Categories>Categories</a><span>: </span></li><li class="category normal" data-name="Article stubs" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Article_stubs title="Category:Article stubs">Article stubs</a></span><span class="tool removeCategory"></span></li><li class="category normal" data-name=Breeds data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a></span><span class="tool removeCategory"></span></li><li class="category normal" data-name="Hybrid Cat Breeds" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Hybrid_Cat_Breeds title="Category:Hybrid Cat Breeds">Hybrid Cat Breeds</a></span><span class="tool removeCategory"></span></li></ul></div></nav></div></div><div class="wds-collapsible-panel wds-is-collapsed page-footer__languages"><header aria-controls=collapsible-content-languages aria-expanded=false class=wds-collapsible-panel__header> Languages <svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-menu-control-small></use></svg> </header><div class=wds-collapsible-panel__content id=collapsible-content-languages><a data-tracking-label=lang-de href=https://katzen.fandom.com/de/wiki/Chausie>Deutsch</a><a data-tracking-label=lang-es href=https://gatopedia.fandom.com/es/wiki/Gato_chausie>Español</a><a href=https://cats.fandom.com/ja/wiki/ data-tracking-label=lang-ja>日本語</a><a href=https://cats.fandom.com/ru/wiki/ data-tracking-label=lang-ru>Русский</a></div></div><div class=license-description> Community content is available under <a href=https://www.fandom.com/licensing>CC-BY-SA</a> unless otherwise noted. </div><div id=mw-data-after-content><div id=articleComments></div></div></div></main>

@@ -1,0 +1,93 @@
+<main class=page__main lang=en><html><body><a href=https://cats.fandom.com/wiki/Alaskan_Snow_Cat/ id=article_url></a></body></html><div class=page-side-tools__wrapper><div class=page-side-tools><button aria-label=Expand class="page-side-tool content-size-toggle" name=content-size-toggle><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-zoom-in-small></use></svg> </button><a aria-label="Sign in to edit" class="page-side-tool page-side-edit" data-tracking-label=log-in-edit-side-tool data-wds-tooltip="Sign in to edit" data-wds-tooltip-position=right href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAlaskan_Snow_Cat%3Fveaction%3Dedit&uselang=en" id=log-in-edit-side-tool><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> </a></div></div><div class=page-header><div class=page-header__top><div class=page-header__meta><div class=page-header__categories><span class=page-header__categories-in>in:</span><a data-tracking-label=categories-top-more-0 href=/wiki/Category:Article_stubs title="Category:Article stubs">Article stubs</a>, <a data-tracking-label=categories-top-more-1 href=/wiki/Category:Extinct_Species title="Category:Extinct Species">Extinct Species</a>, <a data-tracking-label=categories-top-more-2 href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a> </div></div></div><div class=page-header__bottom><div class=page-header__title-wrapper><h1 class=page-header__title id=firstHeading><span class=mw-page-title-main>Alaskan Snow Cat</span> </h1></div><div class=page-header__actions id=p-views><a class="wds-button wds-is-text page-header__action-button" data-tracking-label=comments-button href=#articleComments><div class=button-counter id=article-comments-button></div><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-comment-small></use></svg> </a><a class="wds-button wds-is-text page-header__action-button has-label" data-tracking-label=log-in-edit href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAlaskan_Snow_Cat%3Fveaction%3Dedit&uselang=en" id=log-in-edit><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> Sign in to edit </a><div class=wds-dropdown><div aria-controls=p-cactions aria-label="Page Tools" class="wds-dropdown__toggle wds-button wds-is-text page-header__action-button" role=button><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-more-small></use></svg> </div><div class="wds-dropdown__content wds-is-right-aligned wds-is-not-scrollable" id=p-cactions><ul class="wds-list wds-is-linked"><li><a accesskey=h data-tracking-label=ca-history-dropdown href="/wiki/Alaskan_Snow_Cat?action=history" id=ca-history> View history </a></li><li><a accesskey=t class=new data-tracking-label=ca-talk-dropdown href="/wiki/Talk:Alaskan_Snow_Cat?action=edit&redlink=1" id=ca-talk> Talk (0) </a></li></ul></div></div></div></div></div><div class=page-content id=content><script data-name=featured-video-mapped-to-wiki>
+    (function () {
+        // we can't use mw.config here because it's too early so we need to pass this data in different way
+        var videoDetails = {
+            mediaId: "CR0MZ2ZP",
+            impressionsPerSession: 3,
+            isDedicatedForArticle: false,
+            tier3Mapping: true,
+        };
+        var hasVideoOnPage = null;
+        var videoBridgeCountries = ["US","GB","CA","AU","DE","SG","MY","VN","ID","PH","TH","ES","FR","AR","MX","CO","PE","NZ","IN","DE","VN","FR","BR","ES","PL","CL"];
+        var tier3VideoBridgeCountries = ["MX","AR"];
+
+        function getCookieValue(cookieName) {
+            var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
+            return cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
+        }
+
+        function hasMaxedOutPlayerImpressionsInWiki() {
+            var impressionsSoFar = Number(getCookieValue('playerImpressionsInWiki')) || 0;
+            var allowedImpressions = Number(videoDetails.impressionsPerSession);
+
+            if (!hasSeenTheVideoInCurrentSession()) {
+                return false;
+            }
+
+            if (allowedImpressions === 0) {
+                return true;
+            }
+
+            return impressionsSoFar >= allowedImpressions;
+        }
+
+        function hasSeenTheVideoInCurrentSession() {
+            var currentSession = getCookieValue('wikia_session_id');
+            var videoSeenInSession = getCookieValue('featuredVideoSeenInSession');
+
+            return currentSession && videoSeenInSession && currentSession === videoSeenInSession;
+        }
+
+        function getCountryCode() {
+            try {
+                return JSON.parse(decodeURIComponent(getCookieValue('Geo'))).country.toLowerCase();
+            } catch {
+                return null;
+            }
+        }
+
+        function isVideoBridgeAllowedForCountry() {
+            var countryCode = getCountryCode();
+
+            if (!countryCode) {
+                return false;
+            }
+
+            // Check if the wiki is a tier3 wiki. This value comes back from the ArticleVideo service
+            if (videoDetails && videoDetails.tier3Mapping) {
+              // If the wiki is classified as a tier3 wiki, then check the country whitelist from the tier3VideoBridge whitelist.
+              var allowedCountriesForTier3Wikis = tier3VideoBridgeCountries.map(function (allowedTier3CountryCode) {
+                return allowedTier3CountryCode.toLowerCase();
+              })
+
+              return allowedCountriesForTier3Wikis.indexOf(countryCode) !== -1;
+            } else {
+              // If not a tier3 wiki, then check the country whitelist from the videoBridge whitelist
+              var allowedCountries = videoBridgeCountries.map(function (allowedCountryCode) {
+                return allowedCountryCode.toLowerCase();
+              });
+
+              return allowedCountries.indexOf(countryCode) !== -1;
+            }
+
+            return false;
+        }
+
+        window.canPlayVideo = function () {
+            if (hasVideoOnPage === null) {
+                hasVideoOnPage = videoDetails.mediaId && (
+                    videoDetails.isDedicatedForArticle ||
+	                (!hasMaxedOutPlayerImpressionsInWiki() && isVideoBridgeAllowedForCountry())
+                );
+            }
+
+            return hasVideoOnPage;
+        };
+
+        if (!window.canPlayVideo()) {
+            document.body.classList.add('no-featured-video');
+        } else {
+	        document.body.classList.add('has-featured-video');
+        }
+    })();
+</script><div itemprop=video itemscope itemtype=http://schema.org/VideoObject><meta content="How Big Ahsoka Actually Was? - The Loop" itemprop=name><meta content=PT01M08S itemprop=duration><meta content itemprop=description><meta content="https://cdn.jwplayer.com/v2/media/HHON9eqF/poster.jpg?width=720" itemprop=thumbnailUrl><meta content=https://cdn.jwplayer.com/videos/HHON9eqF-cSpmBcaY.mp4 itemprop=contentURL><meta content=2023-10-25T18:16:29+00:00 itemprop=uploadDate><div class=featured-video-player-container id=featured-video__player-container></div></div><div class="mw-body-content mw-content-ltr" dir=ltr id=mw-content-text><noscript><iframe height=0 src="https://www.googletagmanager.com/ns.html?id=GTM-N6XD44P" style=display:none;visibility:hidden width=0></iframe></noscript><div class=mw-parser-output><table align=center cellpadding=0 cellspacing=0 style="background-color:#E7FEFF; border:navy solid 2px; padding:4px 6px; border-radius:20px; -moz-border-radius:20px; -webkit-border-radius:20px;"><tbody><tr><td><a class=image href="https://static.wikia.nocookie.net/cats/images/0/0f/Strolling_panther.gif/revision/latest?cb=20131128044006&path-prefix=en"><img alt="Strolling panther" data-image-key=Strolling_panther.gif data-image-name="Strolling panther.gif" data-relevant=0 decoding=async height=41 loading=lazy src="https://static.wikia.nocookie.net/cats/images/0/0f/Strolling_panther.gif/revision/latest?cb=20131128044006&path-prefix=en" width=85></a></td><th>This article is a <a href=/wiki/Category:Article_stubs title="Category:Article stubs">stub</a>. You can help Cats Wiki by <a class=text href="https://cats.fandom.com/wiki/Alaskan_Snow_Cat?action=edit" rel="noreferrer noopener" target=_blank>expanding it</a>. </th></tr></tbody></table><table class=infobox style="width:250px;float:right;border:2px solid black; font-size:100%; background-color:transparent; -moz-box-shadow: 0px 7px 7px black; -webkit-box-shadow: 0px 7px 7px black;"><tbody><tr><th class=color1 colspan=3 style="font-size:120%;background-color:black; color:white;">Alaskan Snow Cat </th></tr><tr style=text-align:center;><td colspan=2><a class=image href="https://static.wikia.nocookie.net/cats/images/9/91/Alaskan-1.jpg/revision/latest?cb=20230114072207&path-prefix=en"><img alt=Alaskan-1 data-image-key=Alaskan-1.jpg data-image-name=Alaskan-1.jpg data-relevant=1 decoding=async height=172 loading=lazy src="https://static.wikia.nocookie.net/cats/images/9/91/Alaskan-1.jpg/revision/latest/scale-to-width-down/250?cb=20230114072207&path-prefix=en" width=250></a> <br><i> </i></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; font-weight:bold; background-color:black; color:white;">Information </td></tr><tr><td style="width:50px; background-color:black;color:white; text-align:center;"><b>Origin</b></td><td class=infoboxcell><p>United States </p></td></tr><tr><td style="background-color:black;color:white; text-align:center;"><b>Common Nicknames</b></td><td class=infoboxcell><p>Persian Somali, Snow Cat </p></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Cat title=Cat><font style="color:white; font-weight:bold;">Cat</font></a> <b>(Felis catus)</b></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Category:Breeds title=Category:Breeds><font style="color:white; font-weight:bold;">List of Cat Breeds</font></a></td></tr></tbody></table><p><br></p><p><br></p><p>The <b>Alaskan Snow Cat</b> was an experimental domesticated breed derived from the <a href=/wiki/Somali title=Somali>Somali</a>; this time crossed to silver <a href=/wiki/Persian title=Persian>Persians</a>. It was created in the 1990s by several breeders throughout the United States, and breeding was concentrated around Minnesota and Florida among this breed’s very development. The breeders were working towards creating a breed standard and gaining recognition of the breed. They aimed to produce a cat with the grace and beauty of the Somali, but with a heavier body and head through outcrossing to Persians. </p><h2><span class=mw-headline id=Information>Information</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAlaskan_Snow_Cat%3Fveaction%3Dedit%26section%3D1&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p><sup class=reference id=cite_ref-1><a href=#cite_note-1>[1]</a></sup>The desired colors included a very pale or white underbelly, while the body color was brown, rust (Somali red) or black (Somali ruddy), and most had residual dark banding on the legs and tail. The most desirable color of the Alaskan Snow cat was a silver-grey with darker grey banding and a white underbelly and throat ruff - a colour familiar to European breeders of Somalis, but not then accepted in American Somalis, as "silver series". In terms of colour, breeders were reinventing the wheel. In terms of conformation, they heading along the same path as the <a href=/wiki/Burmilla title=Burmilla>Burmilla</a> and or, Asian group of cats. </p><figure class="thumb tright show-info-icon" style="width: 180px"> <a class=image href="https://static.wikia.nocookie.net/cats/images/c/c8/Alaskan-2.jpg/revision/latest?cb=20230114073446&path-prefix=en"><img alt=Alaskan-2 class=thumbimage data-image-key=Alaskan-2.jpg data-image-name=Alaskan-2.jpg data-relevant=1 decoding=async height=180 loading=lazy src="https://static.wikia.nocookie.net/cats/images/c/c8/Alaskan-2.jpg/revision/latest/scale-to-width-down/180?cb=20230114073446&path-prefix=en" width=180></a> <figcaption class=thumbcaption> <a class=info-icon href=/wiki/File:Alaskan-2.jpg><svg><use xlink:href=#wds-icons-info-small></use></svg></a> </figcaption> </figure><p>The Alaskan Snow Cat, due to its Persian ancestor, was bred to be stronger and more stable than the Somali. It was intended to be a good family pet; hardier than the Somali and more able to roughhouse with dogs and small children. Their cobbiness and weight meant they were less agile or acrobatic than the Somali. While they couldn't jump as nimbly or as high as A Somali, they were good climbers and liked high vantage points such as the tops of cupboards or bookshelves (and even curtains that could support their weight). From the Persian they got a laid back temperament, but they disliked loud or sudden noises. They were people-oriented and enjoyed the company of other family pets as well as the company of their own breed. However, it was difficult to standardize the look and color of the breed and it probably lost out to the silver series Somalis and the <a href=/wiki/Burmilla title=Burmilla>Burmilla</a>, Asian cats whose traits were similar and which were already established breeds outside of North America. </p><h2><span class=mw-headline id=References>References</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAlaskan_Snow_Cat%3Fveaction%3Dedit%26section%3D2&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><div class=mw-references-wrap><ol class=references><li id=cite_note-1><span class=mw-cite-backlink><a href=#cite_ref-1>↑</a></span> <span class=reference-text><a class="external free" href=http://messybeast.com/lostbreed-alaskan.htm rel="nofollow noreferrer noopener" target=_blank>http://messybeast.com/lostbreed-alaskan.htm</a></span></li></ol></div></div></div> </div><div class=page-footer><div class="wds-collapsible-panel wds-is-collapsed page-footer__categories"><header aria-controls=collapsible-content-categories aria-expanded=false class=wds-collapsible-panel__header> Categories <svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-menu-control-small></use></svg> </header><div class=wds-collapsible-panel__content id=collapsible-content-categories><nav class="article-categories CategorySelect articlePage" id=articleCategories><div class=container><ul class=categories><li class=special-categories-label><a class=categoriesLink href=/wiki/Special:Categories title=Special:Categories>Categories</a><span>: </span></li><li class="category normal" data-name="Article stubs" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Article_stubs title="Category:Article stubs">Article stubs</a></span><span class="tool removeCategory"></span></li><li class="category normal" data-name="Extinct Species" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Extinct_Species title="Category:Extinct Species">Extinct Species</a></span><span class="tool removeCategory"></span></li><li class="category normal" data-name=Breeds data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a></span><span class="tool removeCategory"></span></li></ul></div></nav></div></div><div class=license-description> Community content is available under <a href=https://www.fandom.com/licensing>CC-BY-SA</a> unless otherwise noted. </div><div id=mw-data-after-content><div id=articleComments></div></div></div></main>

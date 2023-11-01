@@ -1,0 +1,93 @@
+<main class=page__main lang=en><html><body><a href=https://cats.fandom.com/wiki/Catnip_-_Nepeta_Cataria/ id=article_url></a></body></html><div class=page-side-tools__wrapper><div class=page-side-tools><button aria-label=Expand class="page-side-tool content-size-toggle" name=content-size-toggle><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-zoom-in-small></use></svg> </button><a aria-label="Sign in to edit" class="page-side-tool page-side-edit" data-tracking-label=log-in-edit-side-tool data-wds-tooltip="Sign in to edit" data-wds-tooltip-position=right href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FCatnip_-_Nepeta_Cataria%3Fveaction%3Dedit&uselang=en" id=log-in-edit-side-tool><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> </a></div></div><div class=page-header><div class=page-header__top><div class=page-header__meta><div class=page-header__categories><span class=page-header__categories-in>in:</span><a class=newcategory data-tracking-label=categories-top-more-0 href=/wiki/Category:Cat_Behavior title="Category:Cat Behavior">Cat Behavior</a> </div></div><div class=page-header__languages><div class=wds-dropdown><div class=wds-dropdown__toggle> English<svg class="wds-icon wds-icon-tiny wds-dropdown__toggle-chevron"><use xlink:href=#wds-icons-dropdown-tiny></use></svg> </div><div class=wds-dropdown__content><ul class="wds-list wds-is-linked"><li><a href=https://katzen.fandom.com/de/wiki/ data-tracking-label=lang-de>Deutsch</a></li><li><a href=https://gatopedia.fandom.com/es/wiki/ data-tracking-label=lang-es>Español</a></li><li><a href=https://cats.fandom.com/ja/wiki/ data-tracking-label=lang-ja>日本語</a></li><li><a href=https://cats.fandom.com/ru/wiki/ data-tracking-label=lang-ru>Русский</a></li></ul></div></div></div></div><div class=page-header__bottom><div class=page-header__title-wrapper><h1 class=page-header__title id=firstHeading><span class=mw-page-title-main>Catnip - Nepeta Cataria</span> </h1></div><div class=page-header__actions id=p-views><a class="wds-button wds-is-text page-header__action-button" data-tracking-label=comments-button href=#articleComments><div class=button-counter id=article-comments-button></div><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-comment-small></use></svg> </a><a class="wds-button wds-is-text page-header__action-button has-label" data-tracking-label=log-in-edit href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FCatnip_-_Nepeta_Cataria%3Fveaction%3Dedit&uselang=en" id=log-in-edit><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> Sign in to edit </a><div class=wds-dropdown><div aria-controls=p-cactions aria-label="Page Tools" class="wds-dropdown__toggle wds-button wds-is-text page-header__action-button" role=button><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-more-small></use></svg> </div><div class="wds-dropdown__content wds-is-right-aligned wds-is-not-scrollable" id=p-cactions><ul class="wds-list wds-is-linked"><li><a accesskey=h data-tracking-label=ca-history-dropdown href="/wiki/Catnip_-_Nepeta_Cataria?action=history" id=ca-history> View history </a></li><li><a accesskey=t class=new data-tracking-label=ca-talk-dropdown href="/wiki/Talk:Catnip_-_Nepeta_Cataria?action=edit&redlink=1" id=ca-talk> Talk (0) </a></li></ul></div></div></div></div></div><div class=page-content id=content><script data-name=featured-video-mapped-to-wiki>
+    (function () {
+        // we can't use mw.config here because it's too early so we need to pass this data in different way
+        var videoDetails = {
+            mediaId: "CR0MZ2ZP",
+            impressionsPerSession: 3,
+            isDedicatedForArticle: false,
+            tier3Mapping: true,
+        };
+        var hasVideoOnPage = null;
+        var videoBridgeCountries = ["US","GB","CA","AU","DE","SG","MY","VN","ID","PH","TH","ES","FR","AR","MX","CO","PE","NZ","IN","DE","VN","FR","BR","ES","PL","CL"];
+        var tier3VideoBridgeCountries = ["MX","AR"];
+
+        function getCookieValue(cookieName) {
+            var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
+            return cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
+        }
+
+        function hasMaxedOutPlayerImpressionsInWiki() {
+            var impressionsSoFar = Number(getCookieValue('playerImpressionsInWiki')) || 0;
+            var allowedImpressions = Number(videoDetails.impressionsPerSession);
+
+            if (!hasSeenTheVideoInCurrentSession()) {
+                return false;
+            }
+
+            if (allowedImpressions === 0) {
+                return true;
+            }
+
+            return impressionsSoFar >= allowedImpressions;
+        }
+
+        function hasSeenTheVideoInCurrentSession() {
+            var currentSession = getCookieValue('wikia_session_id');
+            var videoSeenInSession = getCookieValue('featuredVideoSeenInSession');
+
+            return currentSession && videoSeenInSession && currentSession === videoSeenInSession;
+        }
+
+        function getCountryCode() {
+            try {
+                return JSON.parse(decodeURIComponent(getCookieValue('Geo'))).country.toLowerCase();
+            } catch {
+                return null;
+            }
+        }
+
+        function isVideoBridgeAllowedForCountry() {
+            var countryCode = getCountryCode();
+
+            if (!countryCode) {
+                return false;
+            }
+
+            // Check if the wiki is a tier3 wiki. This value comes back from the ArticleVideo service
+            if (videoDetails && videoDetails.tier3Mapping) {
+              // If the wiki is classified as a tier3 wiki, then check the country whitelist from the tier3VideoBridge whitelist.
+              var allowedCountriesForTier3Wikis = tier3VideoBridgeCountries.map(function (allowedTier3CountryCode) {
+                return allowedTier3CountryCode.toLowerCase();
+              })
+
+              return allowedCountriesForTier3Wikis.indexOf(countryCode) !== -1;
+            } else {
+              // If not a tier3 wiki, then check the country whitelist from the videoBridge whitelist
+              var allowedCountries = videoBridgeCountries.map(function (allowedCountryCode) {
+                return allowedCountryCode.toLowerCase();
+              });
+
+              return allowedCountries.indexOf(countryCode) !== -1;
+            }
+
+            return false;
+        }
+
+        window.canPlayVideo = function () {
+            if (hasVideoOnPage === null) {
+                hasVideoOnPage = videoDetails.mediaId && (
+                    videoDetails.isDedicatedForArticle ||
+	                (!hasMaxedOutPlayerImpressionsInWiki() && isVideoBridgeAllowedForCountry())
+                );
+            }
+
+            return hasVideoOnPage;
+        };
+
+        if (!window.canPlayVideo()) {
+            document.body.classList.add('no-featured-video');
+        } else {
+	        document.body.classList.add('has-featured-video');
+        }
+    })();
+</script><div itemprop=video itemscope itemtype=http://schema.org/VideoObject><meta content="How Big Ahsoka Actually Was? - The Loop" itemprop=name><meta content=PT01M08S itemprop=duration><meta content itemprop=description><meta content="https://cdn.jwplayer.com/v2/media/HHON9eqF/poster.jpg?width=720" itemprop=thumbnailUrl><meta content=https://cdn.jwplayer.com/videos/HHON9eqF-cSpmBcaY.mp4 itemprop=contentURL><meta content=2023-10-25T18:16:29+00:00 itemprop=uploadDate><div class=featured-video-player-container id=featured-video__player-container></div></div><div class="mw-body-content mw-content-ltr" dir=ltr id=mw-content-text><noscript><iframe height=0 src="https://www.googletagmanager.com/ns.html?id=GTM-N6XD44P" style=display:none;visibility:hidden width=0></iframe></noscript><div class=mw-parser-output><figure class="thumb tright show-info-icon" style="width: 180px"> <a class=image href="https://static.wikia.nocookie.net/cats/images/e/ec/Nepeta_cataria-catnip.png/revision/latest?cb=20140624140604&path-prefix=en"><img alt="Nepeta cataria-catnip" class=thumbimage data-image-key=Nepeta_cataria-catnip.png data-image-name="Nepeta cataria-catnip.png" data-relevant=1 decoding=async height=119 loading=lazy src="https://static.wikia.nocookie.net/cats/images/e/ec/Nepeta_cataria-catnip.png/revision/latest/scale-to-width-down/180?cb=20140624140604&path-prefix=en" width=180></a> <figcaption class=thumbcaption> <a class=info-icon href=/wiki/File:Nepeta_cataria-catnip.png><svg><use xlink:href=#wds-icons-info-small></use></svg></a> <p class=caption>Catnip plants</p> </figcaption> </figure><p><b>Nepeta</b> is a genus of about 250 species of flowering plants in the family <i>Lamiaceae</i>. The members of this group are known as catnip or "catmint" because of their effect on cats— nepeta pleasantly stimulates cats' pheromone receptors, typically resulting in temporary euphoria— or a state of happiness. Catnip is also used in herbal medicine for their mild sedative effect on humans. </p><h2><span class=mw-headline id=Infomation>Infomation</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FCatnip_-_Nepeta_Cataria%3Fveaction%3Dedit%26section%3D1&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>The genus is native to Europe, Asia, and Africa. It is now also common in North America. Most of the species are herbaceous perennial plants, but some are annuals. They have sturdy stems with opposite heart-shaped, green to grayish-green leaves. The flowers are white, blue, pink or lilac and occur in several clusters toward the tip of the stems. The flowers are tubular and spotted with tiny purple dots. The most commonly found Catmint is <i>Nepeta cataria</i>, roughly 50% of cats are affected by the herb, and even big cats are known to favor it. </p><h2><span class=mw-headline id=Effect_on_Cats>Effect on Cats</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FCatnip_-_Nepeta_Cataria%3Fveaction%3Dedit%26section%3D2&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>When cats come into contact with catnip, particularly Nepeta cataria, their behavior can undergo noticeable changes. The active compound responsible for this reaction is called nepetalactone, which interacts with cats' olfactory system. </p><p>When cats encounter catnip, they may <a class="external text" href=https://thecatspace.com/surprising-truth-about-side-effects-of-catnip/ rel="nofollow noreferrer noopener" target=_blank>exhibit various behaviors</a>, including rolling, rubbing, purring, jumping, and playful activity. Some cats may become more vocal or engage in seemingly euphoric behaviors, such as leaping and frolicking. It is not uncommon for cats to show heightened curiosity and explore their surroundings with increased enthusiasm. These responses are believed to be triggered by the scent of catnip, as cats actively sniff, lick, or chew on the plant. </p><p>The effect of catnip on cats is temporary and typically lasts for about 10 to 15 minutes. After this period, cats may lose interest in the catnip or exhibit a more subdued behavior. It is worth noting that not all cats respond to catnip in the same way. Sensitivity to catnip is hereditary, and approximately 50% of cats have a strong reaction to it, while others may show little to no response. </p><h2><span class=mw-headline id=Navigation>Navigation</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FCatnip_-_Nepeta_Cataria%3Fveaction%3Dedit%26section%3D3&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><figure class="thumb tright" style="width: 335px"> <a class=new href="/wiki/Special:Upload?wpDestFile=Cat_Knocking_The_Door-0" title="File:Cat Knocking The Door-0">File:Cat Knocking The Door-0</a> <figcaption class=thumbcaption> </figcaption> </figure><p>{| class="mw-collapsible mw-collapsed" style="width:100%; background:transparent; border:2px solid black; border-radius:10px;font-size:90%; text-align:center;" </p><p>|- !width="20%" style="background-color:black; border:2px solid black; border-radius:10px;color:white;" |<span class="noprint plainlinks navbar" style><span style></span><span style=white-space:nowrap;word-spacing:-.12em;><a href=/wiki/Template:Cat_Behavior title="Template:Cat Behavior"><span style title="View this template">view</span></a><span style> <b>·</b> </span><span class=new data-uncrawlable-url=L3dpa2kvVGVtcGxhdGVfdGFsazpDYXRfQmVoYXZpb3I/YWN0aW9uPWVkaXQmcmVkbGluaz0x title="Template talk:Cat Behavior (page does not exist)"><span style title="Discuss this template">talk</span></span><span style> <b>·</b> </span><a class=text href="https://cats.fandom.com/wiki/Template:Cat_Behavior?action=edit" rel="noreferrer noopener" target=_blank><span style title="Edit this template">edit</span></a></span></span> ! width="80%" style="background-color:black; color:white; border:2px solid black; border-radius:10px;" |<a href=/wiki/Cat_Behavior title="Cat Behavior">Cat Behavior</a> |- |style="background: black; border:2px solid black; border-radius:10px; text-align:center; font-weight:bold;" align=left; width=14%|<font color=white>Contents</font> |style="background:white;border:2px solid black; border-radius:10px;" align="center"|<font color=black><a href=/wiki/Cat_Body_Language title="Cat Body Language">Cat Body Language</a> • <a href=/wiki/Cat_Fight title="Cat Fight">Cat Fight</a> • <strong class="mw-selflink selflink">Catnip - Nepeta Cataria</strong> • <a href=/wiki/Cat_Communication title="Cat Communication">Cat Communication</a> • <a href=/wiki/Kneading title=Kneading>Kneading</a> • <a href=/wiki/Cat_Intelligence title="Cat Intelligence">Cat Intelligence</a> • <a class=mw-redirect href=/wiki/Cat_Plays_and_Toys title="Cat Plays and Toys">Cat Plays and Toys</a> • <a href=/wiki/Purr title=Purr>Purr</a> • <a href=/wiki/Cat_Righting_Reflex title="Cat Righting Reflex">Cat Righting Reflex</a> • <a href=/wiki/Cat_Senses title="Cat Senses">Cat Senses</a></font> |- |colspan="2" style="background:white; border:2px solid black; box-shadow:3px 3px 15px black inset; border-radius:10px; color:black; text-align:center"|<b><a class=newcategory href=/wiki/Category:Cat_Behavior title="Category:Cat Behavior">Cat Behavior Categories</a> • <a href=/wiki/Portal:Cats title=Portal:Cats>Portal</a> </b> |} </p></div></div> </div><div class=page-footer><div class="wds-collapsible-panel wds-is-collapsed page-footer__categories"><header aria-controls=collapsible-content-categories aria-expanded=false class=wds-collapsible-panel__header> Categories <svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-menu-control-small></use></svg> </header><div class=wds-collapsible-panel__content id=collapsible-content-categories><nav class="article-categories CategorySelect articlePage" id=articleCategories><div class=container><ul class=categories><li class=special-categories-label><a class=categoriesLink href=/wiki/Special:Categories title=Special:Categories>Categories</a><span>: </span></li><li class="category normal" data-name="Cat Behavior" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a class=newcategory href=/wiki/Category:Cat_Behavior title="Category:Cat Behavior">Cat Behavior</a></span><span class="tool removeCategory"></span></li></ul></div></nav></div></div><div class="wds-collapsible-panel wds-is-collapsed page-footer__languages"><header aria-controls=collapsible-content-languages aria-expanded=false class=wds-collapsible-panel__header> Languages <svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-menu-control-small></use></svg> </header><div class=wds-collapsible-panel__content id=collapsible-content-languages><a href=https://katzen.fandom.com/de/wiki/ data-tracking-label=lang-de>Deutsch</a><a href=https://gatopedia.fandom.com/es/wiki/ data-tracking-label=lang-es>Español</a><a href=https://cats.fandom.com/ja/wiki/ data-tracking-label=lang-ja>日本語</a><a href=https://cats.fandom.com/ru/wiki/ data-tracking-label=lang-ru>Русский</a></div></div><div class=license-description> Community content is available under <a href=https://www.fandom.com/licensing>CC-BY-SA</a> unless otherwise noted. </div><div id=mw-data-after-content><div id=articleComments></div></div></div></main>

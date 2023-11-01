@@ -1,0 +1,93 @@
+<main class=page__main lang=en><html><body><a href=https://cats.fandom.com/wiki/Bambino/ id=article_url></a></body></html><div class=page-side-tools__wrapper><div class=page-side-tools><button aria-label=Expand class="page-side-tool content-size-toggle" name=content-size-toggle><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-zoom-in-small></use></svg> </button><a aria-label="Sign in to edit" class="page-side-tool page-side-edit" data-tracking-label=log-in-edit-side-tool data-wds-tooltip="Sign in to edit" data-wds-tooltip-position=right href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FBambino%3Fveaction%3Dedit&uselang=en" id=log-in-edit-side-tool><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> </a></div></div><div class=page-header><div class=page-header__top><div class=page-header__meta><div class=page-header__categories><span class=page-header__categories-in>in:</span><a class=newcategory data-tracking-label=categories-top-more-0 href=/wiki/Category:Pointed_Cat_Breeds title="Category:Pointed Cat Breeds">Pointed Cat Breeds</a>, <a class=newcategory data-tracking-label=categories-top-more-1 href=/wiki/Category:Hairless_Cat_Breeds title="Category:Hairless Cat Breeds">Hairless Cat Breeds</a>, <a data-tracking-label=categories-top-more-2 href=/wiki/Category:Hybrid_Cat_Breeds title="Category:Hybrid Cat Breeds">Hybrid Cat Breeds</a>, <a data-tracking-label=categories-top-more-3 href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a> </div></div></div><div class=page-header__bottom><div class=page-header__title-wrapper><h1 class=page-header__title id=firstHeading><span class=mw-page-title-main>Bambino</span> </h1></div><div class=page-header__actions id=p-views><a class="wds-button wds-is-text page-header__action-button" data-tracking-label=comments-button href=#articleComments><div class=button-counter id=article-comments-button></div><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-comment-small></use></svg> </a><a class="wds-button wds-is-text page-header__action-button has-label" data-tracking-label=log-in-edit href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FBambino%3Fveaction%3Dedit&uselang=en" id=log-in-edit><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> Sign in to edit </a><div class=wds-dropdown><div aria-controls=p-cactions aria-label="Page Tools" class="wds-dropdown__toggle wds-button wds-is-text page-header__action-button" role=button><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-more-small></use></svg> </div><div class="wds-dropdown__content wds-is-right-aligned wds-is-not-scrollable" id=p-cactions><ul class="wds-list wds-is-linked"><li><a accesskey=h data-tracking-label=ca-history-dropdown href="/wiki/Bambino?action=history" id=ca-history> View history </a></li><li><a accesskey=t class=new data-tracking-label=ca-talk-dropdown href="/wiki/Talk:Bambino?action=edit&redlink=1" id=ca-talk> Talk (0) </a></li></ul></div></div></div></div></div><div class=page-content id=content><script data-name=featured-video-mapped-to-wiki>
+    (function () {
+        // we can't use mw.config here because it's too early so we need to pass this data in different way
+        var videoDetails = {
+            mediaId: "CR0MZ2ZP",
+            impressionsPerSession: 3,
+            isDedicatedForArticle: false,
+            tier3Mapping: true,
+        };
+        var hasVideoOnPage = null;
+        var videoBridgeCountries = ["US","GB","CA","AU","DE","SG","MY","VN","ID","PH","TH","ES","FR","AR","MX","CO","PE","NZ","IN","DE","VN","FR","BR","ES","PL","CL"];
+        var tier3VideoBridgeCountries = ["MX","AR"];
+
+        function getCookieValue(cookieName) {
+            var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
+            return cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
+        }
+
+        function hasMaxedOutPlayerImpressionsInWiki() {
+            var impressionsSoFar = Number(getCookieValue('playerImpressionsInWiki')) || 0;
+            var allowedImpressions = Number(videoDetails.impressionsPerSession);
+
+            if (!hasSeenTheVideoInCurrentSession()) {
+                return false;
+            }
+
+            if (allowedImpressions === 0) {
+                return true;
+            }
+
+            return impressionsSoFar >= allowedImpressions;
+        }
+
+        function hasSeenTheVideoInCurrentSession() {
+            var currentSession = getCookieValue('wikia_session_id');
+            var videoSeenInSession = getCookieValue('featuredVideoSeenInSession');
+
+            return currentSession && videoSeenInSession && currentSession === videoSeenInSession;
+        }
+
+        function getCountryCode() {
+            try {
+                return JSON.parse(decodeURIComponent(getCookieValue('Geo'))).country.toLowerCase();
+            } catch {
+                return null;
+            }
+        }
+
+        function isVideoBridgeAllowedForCountry() {
+            var countryCode = getCountryCode();
+
+            if (!countryCode) {
+                return false;
+            }
+
+            // Check if the wiki is a tier3 wiki. This value comes back from the ArticleVideo service
+            if (videoDetails && videoDetails.tier3Mapping) {
+              // If the wiki is classified as a tier3 wiki, then check the country whitelist from the tier3VideoBridge whitelist.
+              var allowedCountriesForTier3Wikis = tier3VideoBridgeCountries.map(function (allowedTier3CountryCode) {
+                return allowedTier3CountryCode.toLowerCase();
+              })
+
+              return allowedCountriesForTier3Wikis.indexOf(countryCode) !== -1;
+            } else {
+              // If not a tier3 wiki, then check the country whitelist from the videoBridge whitelist
+              var allowedCountries = videoBridgeCountries.map(function (allowedCountryCode) {
+                return allowedCountryCode.toLowerCase();
+              });
+
+              return allowedCountries.indexOf(countryCode) !== -1;
+            }
+
+            return false;
+        }
+
+        window.canPlayVideo = function () {
+            if (hasVideoOnPage === null) {
+                hasVideoOnPage = videoDetails.mediaId && (
+                    videoDetails.isDedicatedForArticle ||
+	                (!hasMaxedOutPlayerImpressionsInWiki() && isVideoBridgeAllowedForCountry())
+                );
+            }
+
+            return hasVideoOnPage;
+        };
+
+        if (!window.canPlayVideo()) {
+            document.body.classList.add('no-featured-video');
+        } else {
+	        document.body.classList.add('has-featured-video');
+        }
+    })();
+</script><div itemprop=video itemscope itemtype=http://schema.org/VideoObject><meta content="How Big Ahsoka Actually Was? - The Loop" itemprop=name><meta content=PT01M08S itemprop=duration><meta content itemprop=description><meta content="https://cdn.jwplayer.com/v2/media/HHON9eqF/poster.jpg?width=720" itemprop=thumbnailUrl><meta content=https://cdn.jwplayer.com/videos/HHON9eqF-cSpmBcaY.mp4 itemprop=contentURL><meta content=2023-10-25T18:16:29+00:00 itemprop=uploadDate><div class=featured-video-player-container id=featured-video__player-container></div></div><div class="mw-body-content mw-content-ltr" dir=ltr id=mw-content-text><noscript><iframe height=0 src="https://www.googletagmanager.com/ns.html?id=GTM-N6XD44P" style=display:none;visibility:hidden width=0></iframe></noscript><div class=mw-parser-output><table class=infobox style="width:250px;float:right;border:2px solid black; font-size:100%; background-color:transparent; -moz-box-shadow: 0px 7px 7px black; -webkit-box-shadow: 0px 7px 7px black;"><tbody><tr><th class=color1 colspan=3 style="font-size:120%;background-color:black; color:white;">Bambino </th></tr><tr style=text-align:center;><td colspan=2><a class=image href="https://static.wikia.nocookie.net/cats/images/5/51/Bambino.jpg/revision/latest?cb=20230430154720&path-prefix=en"><img alt=Bambino data-image-key=Bambino.jpg data-image-name=Bambino.jpg data-relevant=1 decoding=async height=167 loading=lazy src="https://static.wikia.nocookie.net/cats/images/5/51/Bambino.jpg/revision/latest/scale-to-width-down/250?cb=20230430154720&path-prefix=en" width=250></a> <br><i> </i></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; font-weight:bold; background-color:black; color:white;">Information </td></tr><tr><td style="width:50px; background-color:black;color:white; text-align:center;"><b>Origin</b></td><td class=infoboxcell><p>United States </p></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Cat title=Cat><font style="color:white; font-weight:bold;">Cat</font></a> <b>(Felis catus)</b></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Category:Breeds title=Category:Breeds><font style="color:white; font-weight:bold;">List of Cat Breeds</font></a></td></tr></tbody></table><p><br></p><p>The <b>Bambino</b> is a small hairless breed of domesticated cat that emerged in in the United States in 2006. This cat is a hybrid of a <a href=/wiki/Sphynx title=Sphynx>Sphynx</a> and a <a href=/wiki/Munchkin title=Munchkin>Munchkin</a>. </p><div aria-labelledby=mw-toc-heading class=toc id=toc role=navigation><input class=toctogglecheckbox id=toctogglecheckbox role=button style=display:none type=checkbox><div class=toctitle dir=ltr><h2 id=mw-toc-heading>Contents</h2><span class=toctogglespan><label class=toctogglelabel for=toctogglecheckbox></label></span></div><ul><li class="toclevel-1 tocsection-1"><a href=#History><span class=tocnumber>1</span> <span class=toctext>History</span></a></li><li class="toclevel-1 tocsection-2"><a href=#Personality><span class=tocnumber>2</span> <span class=toctext>Personality</span></a></li><li class="toclevel-1 tocsection-3"><a href=#Appearance><span class=tocnumber>3</span> <span class=toctext>Appearance</span></a></li><li class="toclevel-1 tocsection-4"><a href=#Trivia><span class=tocnumber>4</span> <span class=toctext>Trivia</span></a></li></ul></div><h2><span class=mw-headline id=History>History</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FBambino%3Fveaction%3Dedit%26section%3D1&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>The Bambino is relatively new and is considered a experimental breed. Cat breeders, Stephanie and Pat Osborne crossed the two breeds through selective breeding in the 2000s at the HolyMoly Cattery. In 2005, the first litter of kittens was born. </p><h2><span class=mw-headline id=Personality>Personality</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FBambino%3Fveaction%3Dedit%26section%3D2&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>The Bambino is described as outgoing, gentle and intelligent. Despite its size, they enjoy getting involved in exercise and play. However, they are not suited to play outdoor games due to their skin being very sensitive to the temperature. They are highly interactive with human beings and expect a lot of attention. They are also well-mannered and are very patient with children, making them a good companion. </p><h2><span class=mw-headline id=Appearance>Appearance</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FBambino%3Fveaction%3Dedit%26section%3D3&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>The Bambino has a unique appearence. They have short legs and huge upright ears, which they get from the Munchkin. Their skin is pink or white like the Spyhnx. While you might think the Bambino is completely bald, it is actually covered in a thin layer of fur that is not immediately obvious. Due to its lack of hair, the Bambino is prone to sun-burn and heat stroke, so it is often necessary to apply a thin layer of sun cream. Some people claim that the Bambino is more vulnerable to back pain like the Dachshund, although unlike the Dachshund, the Bambino has a normal length spinal cord – that is not reduced because of its short legs. Due to the Bambino having a fairly recent history, and with Bambino cats being rare and difficult to acquire, any breed-specific or genetic health conditions are not well documented. </p><h2><span class=mw-headline id=Trivia>Trivia</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FBambino%3Fveaction%3Dedit%26section%3D4&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><ul><li>Bambino means a small child/baby in Italian.</li><li>Some of their species have a “lion tail” and a puff on the tail tip.</li><li>Their wrinkled skin can sometimes feel like chamois.</li></ul></div></div> </div><div class=page-footer><div class="wds-collapsible-panel wds-is-collapsed page-footer__categories"><header aria-controls=collapsible-content-categories aria-expanded=false class=wds-collapsible-panel__header> Categories <svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-menu-control-small></use></svg> </header><div class=wds-collapsible-panel__content id=collapsible-content-categories><nav class="article-categories CategorySelect articlePage" id=articleCategories><div class=container><ul class=categories><li class=special-categories-label><a class=categoriesLink href=/wiki/Special:Categories title=Special:Categories>Categories</a><span>: </span></li><li class="category normal" data-name="Pointed Cat Breeds" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a class=newcategory href=/wiki/Category:Pointed_Cat_Breeds title="Category:Pointed Cat Breeds">Pointed Cat Breeds</a></span><span class="tool removeCategory"></span></li><li class="category normal" data-name="Hairless Cat Breeds" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a class=newcategory href=/wiki/Category:Hairless_Cat_Breeds title="Category:Hairless Cat Breeds">Hairless Cat Breeds</a></span><span class="tool removeCategory"></span></li><li class="category normal" data-name="Hybrid Cat Breeds" data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Hybrid_Cat_Breeds title="Category:Hybrid Cat Breeds">Hybrid Cat Breeds</a></span><span class="tool removeCategory"></span></li><li class="category normal" data-name=Breeds data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a></span><span class="tool removeCategory"></span></li></ul></div></nav></div></div><div class=license-description> Community content is available under <a href=https://www.fandom.com/licensing>CC-BY-SA</a> unless otherwise noted. </div><div id=mw-data-after-content><div id=articleComments></div></div></div></main>

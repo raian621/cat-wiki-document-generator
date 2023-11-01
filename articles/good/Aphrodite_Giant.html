@@ -1,0 +1,93 @@
+<main class=page__main lang=en><html><body><a href=https://cats.fandom.com/wiki/Aphrodite_Giant/ id=article_url></a></body></html><div class=page-side-tools__wrapper><div class=page-side-tools><button aria-label=Expand class="page-side-tool content-size-toggle" name=content-size-toggle><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-zoom-in-small></use></svg> </button><a aria-label="Sign in to edit" class="page-side-tool page-side-edit" data-tracking-label=log-in-edit-side-tool data-wds-tooltip="Sign in to edit" data-wds-tooltip-position=right href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAphrodite_Giant%3Fveaction%3Dedit&uselang=en" id=log-in-edit-side-tool><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> </a></div></div><div class=page-header><div class=page-header__top><div class=page-header__meta><div class=page-header__categories><span class=page-header__categories-in>in:</span><a data-tracking-label=categories-top-more-0 href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a> </div></div></div><div class=page-header__bottom><div class=page-header__title-wrapper><h1 class=page-header__title id=firstHeading><span class=mw-page-title-main>Aphrodite Giant</span> </h1></div><div class=page-header__actions id=p-views><a class="wds-button wds-is-text page-header__action-button" data-tracking-label=comments-button href=#articleComments><div class=button-counter id=article-comments-button></div><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-comment-small></use></svg> </a><a class="wds-button wds-is-text page-header__action-button has-label" data-tracking-label=log-in-edit href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAphrodite_Giant%3Fveaction%3Dedit&uselang=en" id=log-in-edit><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-pencil-small></use></svg> Sign in to edit </a><div class=wds-dropdown><div aria-controls=p-cactions aria-label="Page Tools" class="wds-dropdown__toggle wds-button wds-is-text page-header__action-button" role=button><svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-more-small></use></svg> </div><div class="wds-dropdown__content wds-is-right-aligned wds-is-not-scrollable" id=p-cactions><ul class="wds-list wds-is-linked"><li><a accesskey=h data-tracking-label=ca-history-dropdown href="/wiki/Aphrodite_Giant?action=history" id=ca-history> View history </a></li><li><a accesskey=t class=new data-tracking-label=ca-talk-dropdown href="/wiki/Talk:Aphrodite_Giant?action=edit&redlink=1" id=ca-talk> Talk (0) </a></li></ul></div></div></div></div></div><div class=page-content id=content><script data-name=featured-video-mapped-to-wiki>
+    (function () {
+        // we can't use mw.config here because it's too early so we need to pass this data in different way
+        var videoDetails = {
+            mediaId: "CR0MZ2ZP",
+            impressionsPerSession: 3,
+            isDedicatedForArticle: false,
+            tier3Mapping: true,
+        };
+        var hasVideoOnPage = null;
+        var videoBridgeCountries = ["US","GB","CA","AU","DE","SG","MY","VN","ID","PH","TH","ES","FR","AR","MX","CO","PE","NZ","IN","DE","VN","FR","BR","ES","PL","CL"];
+        var tier3VideoBridgeCountries = ["MX","AR"];
+
+        function getCookieValue(cookieName) {
+            var cookieSplit = ('; ' + document.cookie).split('; ' + cookieName + '=');
+            return cookieSplit.length === 2 ? cookieSplit.pop().split(';').shift() : null;
+        }
+
+        function hasMaxedOutPlayerImpressionsInWiki() {
+            var impressionsSoFar = Number(getCookieValue('playerImpressionsInWiki')) || 0;
+            var allowedImpressions = Number(videoDetails.impressionsPerSession);
+
+            if (!hasSeenTheVideoInCurrentSession()) {
+                return false;
+            }
+
+            if (allowedImpressions === 0) {
+                return true;
+            }
+
+            return impressionsSoFar >= allowedImpressions;
+        }
+
+        function hasSeenTheVideoInCurrentSession() {
+            var currentSession = getCookieValue('wikia_session_id');
+            var videoSeenInSession = getCookieValue('featuredVideoSeenInSession');
+
+            return currentSession && videoSeenInSession && currentSession === videoSeenInSession;
+        }
+
+        function getCountryCode() {
+            try {
+                return JSON.parse(decodeURIComponent(getCookieValue('Geo'))).country.toLowerCase();
+            } catch {
+                return null;
+            }
+        }
+
+        function isVideoBridgeAllowedForCountry() {
+            var countryCode = getCountryCode();
+
+            if (!countryCode) {
+                return false;
+            }
+
+            // Check if the wiki is a tier3 wiki. This value comes back from the ArticleVideo service
+            if (videoDetails && videoDetails.tier3Mapping) {
+              // If the wiki is classified as a tier3 wiki, then check the country whitelist from the tier3VideoBridge whitelist.
+              var allowedCountriesForTier3Wikis = tier3VideoBridgeCountries.map(function (allowedTier3CountryCode) {
+                return allowedTier3CountryCode.toLowerCase();
+              })
+
+              return allowedCountriesForTier3Wikis.indexOf(countryCode) !== -1;
+            } else {
+              // If not a tier3 wiki, then check the country whitelist from the videoBridge whitelist
+              var allowedCountries = videoBridgeCountries.map(function (allowedCountryCode) {
+                return allowedCountryCode.toLowerCase();
+              });
+
+              return allowedCountries.indexOf(countryCode) !== -1;
+            }
+
+            return false;
+        }
+
+        window.canPlayVideo = function () {
+            if (hasVideoOnPage === null) {
+                hasVideoOnPage = videoDetails.mediaId && (
+                    videoDetails.isDedicatedForArticle ||
+	                (!hasMaxedOutPlayerImpressionsInWiki() && isVideoBridgeAllowedForCountry())
+                );
+            }
+
+            return hasVideoOnPage;
+        };
+
+        if (!window.canPlayVideo()) {
+            document.body.classList.add('no-featured-video');
+        } else {
+	        document.body.classList.add('has-featured-video');
+        }
+    })();
+</script><div itemprop=video itemscope itemtype=http://schema.org/VideoObject><meta content="How Big Ahsoka Actually Was? - The Loop" itemprop=name><meta content=PT01M08S itemprop=duration><meta content itemprop=description><meta content="https://cdn.jwplayer.com/v2/media/HHON9eqF/poster.jpg?width=720" itemprop=thumbnailUrl><meta content=https://cdn.jwplayer.com/videos/HHON9eqF-cSpmBcaY.mp4 itemprop=contentURL><meta content=2023-10-25T18:16:29+00:00 itemprop=uploadDate><div class=featured-video-player-container id=featured-video__player-container></div></div><div class="mw-body-content mw-content-ltr" dir=ltr id=mw-content-text><noscript><iframe height=0 src="https://www.googletagmanager.com/ns.html?id=GTM-N6XD44P" style=display:none;visibility:hidden width=0></iframe></noscript><div class=mw-parser-output><p>The Aphrodite cat, also known as the Aphrodite Giant or the Cyprus cat, is one of the few naturally occurring cat breeds. These large, family-friendly felines evolved from the feral cats living in Cyprus with no human assistance. Various experts believe the breed slowly developed throughout the mountains in Cyprus. Due to their large size, they were successful hunters. </p><table class=infobox style="width:250px;float:right;border:2px solid black; font-size:100%; background-color:transparent; -moz-box-shadow: 0px 7px 7px black; -webkit-box-shadow: 0px 7px 7px black;"><tbody><tr><th class=color1 colspan=3 style="font-size:120%;background-color:black; color:white;">Aphrodite Giant </th></tr><tr style=text-align:center;><td colspan=2><a class=image href="https://static.wikia.nocookie.net/cats/images/e/ef/Kroz_Aphrogiant.webp/revision/latest?cb=20230601172018&path-prefix=en"><img alt="Kroz Aphrogiant" data-image-key=Kroz_Aphrogiant.webp data-image-name="Kroz Aphrogiant.webp" data-relevant=1 decoding=async height=167 loading=lazy src="https://static.wikia.nocookie.net/cats/images/e/ef/Kroz_Aphrogiant.webp/revision/latest/scale-to-width-down/250?cb=20230601172018&path-prefix=en" width=250></a> <br><i> </i></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; font-weight:bold; background-color:black; color:white;">Information </td></tr><tr><td style="background-color:black;color:white; text-align:center;"><b>Alternative Names</b></td><td class=infoboxcell><p>Aphrodite Giant<br>Cyprus Cat </p></td></tr><tr><td style="width:50px; background-color:black;color:white; text-align:center;"><b>Origin</b></td><td class=infoboxcell><p>Cyprus </p></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Cat title=Cat><font style="color:white; font-weight:bold;">Cat</font></a> <b>(Felis catus)</b></td></tr><tr style=text-align:center;><td colspan=3 style="font-size:100%; background-color:black; color:white"><a href=/wiki/Category:Breeds title=Category:Breeds><font style="color:white; font-weight:bold;">List of Cat Breeds</font></a></td></tr></tbody></table><p><br></p><p><br></p><h2><span class=mw-headline id=Characteristics>Characteristics</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAphrodite_Giant%3Fveaction%3Dedit%26section%3D1&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><p>The Aphrodite Giant is one of the planet’s oldest cat felines. While some breeders claim that the Aphrodite Giant cats are directly evolved from the ancient cats from 9500 B.C., organizations like the World Cat Federation (WCF) and The International Cat Association (TICA) actively refute these claims. According to TICA, the Cyprus cat did, in fact, evolve from the feral cats. The Aphrodite breed was officially recognized by TICA in 2017. </p><p>Aphrodite Giants are large, athletic, and well-muscled, and are very adaptable to active lifestyles. These cats are known for being gentle, loving, and very intelligent. TICA’s overview of the breed describes them as affectionate, social, and almost dog-like in some of their behavior towards their owners. </p><h2><span class=mw-headline id=Trivia>Trivia</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAphrodite_Giant%3Fveaction%3Dedit%26section%3D2&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h2><h3><span id=According_to_a_Byzantine_myth.2C_Aphrodite_cats_were_sent_from_Egypt_to_Cyprus_in_A.D._328_by_Helena_of_Constantinople_to_eradicate_the_venomous_snakes_ravaging_the_island.></span><span class=mw-headline id=According_to_a_Byzantine_myth,_Aphrodite_cats_were_sent_from_Egypt_to_Cyprus_in_A.D._328_by_Helena_of_Constantinople_to_eradicate_the_venomous_snakes_ravaging_the_island.>According to a Byzantine myth, Aphrodite cats were sent from Egypt to Cyprus in A.D. 328 by Helena of Constantinople to eradicate the venomous snakes ravaging the island.</span><span class=mw-editsection><span class=mw-editsection-bracket>[</span><a class=mw-editsection-visualeditor data-tracking-label=log-in-edit-section href="https://auth.fandom.com/signin?redirect=https%3A%2F%2Fcats.fandom.com%2Fwiki%2FAphrodite_Giant%3Fveaction%3Dedit%26section%3D3&uselang=en" title="Sign in to edit"><svg class="wds-icon wds-icon-tiny"><use xlink:href=#wds-icons-pencil-tiny></use></svg></a><span class=mw-editsection-bracket>]</span></span></h3><p>St. Helena brought over two shiploads of cats from Egypt to Palestine to combat the snakes in the monastery. Aphrodite Giants are natural predators due to their large size and ability to hunt prey like snakes. </p></div></div> </div><div class=page-footer><div class="wds-collapsible-panel wds-is-collapsed page-footer__categories"><header aria-controls=collapsible-content-categories aria-expanded=false class=wds-collapsible-panel__header> Categories <svg class="wds-icon wds-icon-small"><use xlink:href=#wds-icons-menu-control-small></use></svg> </header><div class=wds-collapsible-panel__content id=collapsible-content-categories><nav class="article-categories CategorySelect articlePage" id=articleCategories><div class=container><ul class=categories><li class=special-categories-label><a class=categoriesLink href=/wiki/Special:Categories title=Special:Categories>Categories</a><span>: </span></li><li class="category normal" data-name=Breeds data-namespace data-outertag data-sortkey data-type=normal><span class=name><a href=/wiki/Category:Breeds title=Category:Breeds>Breeds</a></span><span class="tool removeCategory"></span></li></ul></div></nav></div></div><div class=license-description> Community content is available under <a href=https://www.fandom.com/licensing>CC-BY-SA</a> unless otherwise noted. </div><div id=mw-data-after-content><div id=articleComments></div></div></div></main>
