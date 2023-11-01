@@ -50,6 +50,7 @@ def generate_document(filepath, dirname, replace) -> DocumentMetadata:
   if save_to_file:
     document = Document()
     styles = document.styles
+    
     styles['Normal'].font.name = 'Rubik'
     styles['Heading 1'].font.name = 'Rubik Light 300'
     styles['Heading 1'].font.size = Pt(20)
