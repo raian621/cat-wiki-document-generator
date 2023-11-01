@@ -18,6 +18,9 @@ def download_article(filepath, url):
     response = requests.get(url)
     if response.ok:
       soup = BeautifulSoup(response.content, 'html.parser')
+      main_content = soup.find('main')
+      url_insert = BeautifulSoup(f'<a id="article_url" href={url}></a>', 'html.parser')
+      main_content.insert(0, url_insert)
       file.write(minify(
         soup.find('main').__str__(),
         remove_comments=True,
@@ -26,6 +29,9 @@ def download_article(filepath, url):
 
 
 def download_articles(filepath):
+  '''
+  filepath: path to json file containing categorized article URLs
+  '''
   articles = None
   with open(filepath, 'rb') as file:
     articles = json.load(file)
