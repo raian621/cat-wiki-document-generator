@@ -29,6 +29,7 @@ def download_articles(filepath):
   articles = None
   with open(filepath, 'rb') as file:
     articles = json.load(file)
+    
   if not exists('./articles'):
     mkdir('./articles')
   if not exists('./articles/good'):
@@ -38,10 +39,17 @@ def download_articles(filepath):
   if not exists('./articles/meh'):
     mkdir('./articles/meh')
 
+  threads = []
+  
   for key in articles.keys():
     for article in articles[key]:
       filepath = f'./articles/{key}/{article.split("/")[-1]}.html'
       if not exists(filepath):
-        Thread(target=download_article, args=[filepath, article]).start()
-        sleep(0.2)
+        threads.append(Thread(target=download_article, args=[filepath, article]))
+        threads[-1].start()
+        sleep(0.5) # be nice to cat wiki servers
+  
+  # ensure all threads have finished executing before exiting the main thread
+  for thread in threads:
+    thread.join()
     
